@@ -118,6 +118,13 @@ final class Model extends RevisionableContentEntityBase implements ModelInterfac
   }
 
   /**
+   * Get the model's name/label.
+   */
+  public function getLabel(): ?string {
+    return $this->get('label')->value;
+  }
+
+  /**
    * Get model description.
    */
   public function getDescription(): ?string {
@@ -201,6 +208,102 @@ final class Model extends RevisionableContentEntityBase implements ModelInterfac
    */
   public function getApprover(): ?AccountInterface {
     return $this->get('approver')->entity;
+  }
+
+  /**
+   * Set a model's licenses.
+   */
+  public function setLicenses(array $licenses): self {
+    $this->set('license_data', ['licenses' => $licenses]);
+    return $this;
+  }
+
+  /**
+   * Set a model's completed components.
+   */
+  public function setCompletedComponents(array $components): self {
+    $this->set('components', $components);
+    return $this;
+  }
+
+  /**
+   * Set model label.
+   */
+  public function setLabel(string $label): self {
+    $this->set('label', $label);
+    return $this;
+  }
+
+  /**
+   * Set model description.
+   */
+  public function setDescription(string $description): self {
+    $this->set('description', $description);
+    return $this;
+  }
+
+  /**
+   * Set model version.
+   */
+  public function setVersion(string $version): self {
+    $this->set('version', $version);
+    return $this;
+  }
+
+  /**
+   * Set model organization.
+   */
+  public function setOrganization(string $organization): self {
+    $this->set('organization', $organization);
+    return $this;
+  }
+
+  /**
+   * Set model type.
+   */
+  public function setType(string $type): self {
+    $this->set('type', $type);
+    return $this;
+  }
+
+  /**
+   * Set model architecture.
+   */
+  public function setArchitecture(string $architecture): self {
+    $this->set('architecture', $architecture);
+    return $this;
+  }
+
+  /**
+   * Set model treatment.
+   */
+  public function setTreatment(string $treatment): self {
+    $this->set('treatment', $treatment);
+    return $this;
+  }
+
+  /**
+   * Set model origin.
+   */
+  public function setOrigin(string $origin): self {
+    $this->set('origin', $origin);
+    return $this;
+  }
+
+  /**
+   * Set model github.
+   */
+  public function setGitHub(string $github): self {
+    $this->set('github', $github);
+    return $this;
+  }
+
+  /**
+   * Set model github.
+   */
+  public function setHuggingFace(string $huggingface): self {
+    $this->set('github', $huggingface);
+    return $this;
   }
 
   /**

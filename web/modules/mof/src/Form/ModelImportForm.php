@@ -92,13 +92,17 @@ final class ModelImportForm extends FormBase {
       foreach ($this
         ->modelStorage
         ->loadMultiple($ids) as $model) {
-        $existing_models[] = $model->label();
+        $existing_models[] = $model;
       }
 
-      $skip = $import = 0;
+      $update = $import = 0;
+      $model_names = array_column($existing_models, 'label');
+      $model_names = array_map(fn($m) => $m->value, $model_names);
+
       foreach ($data as $model) {
-        if (in_array($model['Name'], $existing_models)) {
-          $skip++;
+        if (($key = array_search($model['Name'], $model_names)) !== FALSE) {
+          $update++;
+          $batch['operations'][] = ['\Drupal\mof\Batch\ModelCsvImport::update', [$existing_models[$key], $model]];
         }
         else {
           $import++;
@@ -107,7 +111,7 @@ final class ModelImportForm extends FormBase {
       }
 
       $this->messenger->addMessage($this->t('Importing @num records', ['@num' => $import]));
-      $this->messenger->addMessage($this->t('Skipped @num records', ['@num' => $skip]));
+      $this->messenger->addMessage($this->t('Updated @num records', ['@num' => $update]));
 
       batch_set($batch);
     }

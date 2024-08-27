@@ -3,6 +3,8 @@
 namespace Drupal\mof\Batch;
 
 use Drupal\mof\Entity\Model;
+use Drupal\mof\ModelInterface;
+use Drupal\Core\Session\AccountInterface;
 
 class ModelCsvImport {
 
@@ -11,8 +13,11 @@ class ModelCsvImport {
    */
   public static function finished($success, $results, $operations) {
     if ($success) {
-      if (isset($results['imported']) && $results['imported'] > 1) {
+      if (isset($results['imported']) && $results['imported'] > 0) {
         \Drupal::messenger()->addMessage(t('Imported @num models', ['@num' => $results['imported']]));
+      }
+      if (isset($results['updated']) && $results['updated'] > 0) {
+        \Drupal::messenger()->addMessage(t('Updated @num models', ['@num' => $results['updated']]));
       }
     }
   }
@@ -27,22 +32,51 @@ class ModelCsvImport {
       $context['results']['imported'] = 0;
     }
 
-    $model = [
-      'label' => $data['Name'],
-      'description' => $data['Description'] ?: '-',
-      'version' => $data['Version/Parameters'],
-      'organization' => $data['Organization'],
-      'type' => $data['Model Type'],
-      'architecture' => $data['Architecture'],
-      'treatment' => $data['Training Treatment'],
-      'origin' => $data['Base Model'],
-      'github' => self::getPathFromUrl($data['Github Repo URL']),
-      'huggingface' => self::getPathFromUrl($data['HuggingFace Model URL']),
-      'approver' => self::setApprover($data['Researcher']),
-      'status' => 'approved',
-    ];
+    $model = Model::create();
+    if (static::setModelValues($model, $data) === SAVED_NEW) {
+      $context['results']['imported']++;
+    }
+  }
 
-    $license_data = [
+  /**
+   * Update existing model from CSV data.
+   */
+  public static function update(ModelInterface $model, array $data, array &$context) {
+    $context['message'] = t('Updating model %name', ['%name' => $data['Name']]);
+
+    if (!isset($context['results']['updated'])) {
+      $context['results']['updated'] = 0;
+    }
+
+    if (static::setModelValues($model, $data) === SAVED_UPDATED) {
+      $context['results']['updated']++;
+    }
+  }
+
+  public static function setModelValues(ModelInterface $model, array $data): int {
+    $licenses = static::processLicenses($data);
+
+    $model
+      ->setLabel($data['Name'])
+      ->setDescription($data['Description'])
+      ->setVersion($data['Version/Parameters'])
+      ->setOrganization($data['Organization'])
+      ->setType($data['Model Type'])
+      ->setArchitecture($data['Architecture'])
+      ->setTreatment($data['Training Treatment'])
+      ->setOrigin($data['Base Model'])
+      ->setGitHub(self::getPathFromUrl($data['Github Repo URL']))
+      ->setHuggingFace(self::getPathFromUrl($data['HuggingFace Model URL']))
+      ->setApprover(self::getApprover($data['Researcher']))
+      ->setLicenses($licenses)
+      ->setCompletedComponents(array_keys($licenses))
+      ->setStatus('approved');
+
+    return $model->save();
+  }
+
+  public static function processLicenses(array $data): array {
+    return [
       9 => [
         'license' => $data['Model Architecture'] ?: 'Pending evaluation',
         'license_path' => '',
@@ -129,14 +163,6 @@ class ModelCsvImport {
         'component_path' => '',
       ],
     ];
-
-    $model['license_data']['licenses'] = $license_data;
-    $model['components'] = array_keys($license_data);
-    $entity = Model::create($model);
-
-    if ($entity->save() === 1) {
-      $context['results']['imported']++;
-    }
   }
 
   public static function getPathFromUrl(string $url): string {
@@ -144,13 +170,13 @@ class ModelCsvImport {
     return isset($parsed['path']) ? ltrim($parsed['path'], '/') : '';
   }
 
-  public static function setApprover(string $researcher): int {
+  public static function getApprover(string $researcher): AccountInterface {
     $username = strtolower(str_replace(' ', '.', $researcher));
     $user_storage = \Drupal::entityTypeManager()->getStorage('user');
     $user = $user_storage->loadByProperties(['name' => $username]);
 
     if (!empty($user)) {
-      return (int)reset($user)->id();
+      return reset($user);
     }
 
     // Generate new user with random password.
@@ -161,7 +187,7 @@ class ModelCsvImport {
     ]);
 
     $user->save();
-    return (int)$user->id();
+    return $user;
   }
 
 }
