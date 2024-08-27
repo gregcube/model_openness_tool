@@ -94,9 +94,9 @@ class ModelCsvImport {
       ->setArchitecture($data['Architecture'])
       ->setTreatment($data['Training Treatment'])
       ->setOrigin($data['Base Model'])
-      ->setGitHub(self::getPathFromUrl($data['Github Repo URL']))
-      ->setHuggingFace(self::getPathFromUrl($data['HuggingFace Model URL']))
-      ->setApprover(self::getApprover($data['Researcher']))
+      ->setGitHub(static::getPathFromUrl($data['Github Repo URL']))
+      ->setHuggingFace(static::getPathFromUrl($data['HuggingFace Model URL']))
+      ->setApprover(static::getApprover($data['Researcher']))
       ->setLicenses($licenses)
       ->setCompletedComponents(array_keys($licenses))
       ->setStatus('approved');

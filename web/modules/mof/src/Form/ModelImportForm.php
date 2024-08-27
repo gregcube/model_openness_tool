@@ -95,24 +95,21 @@ final class ModelImportForm extends FormBase {
         $existing_models[] = $model;
       }
 
-      $update = $import = 0;
       $model_names = array_column($existing_models, 'label');
       $model_names = array_map(fn($m) => $m->value, $model_names);
 
+      $total = 0;
       foreach ($data as $model) {
+        $total++;
         if (($key = array_search($model['Name'], $model_names)) !== FALSE) {
-          $update++;
           $batch['operations'][] = ['\Drupal\mof\Batch\ModelCsvImport::update', [$existing_models[$key], $model]];
         }
         else {
-          $import++;
           $batch['operations'][] = ['\Drupal\mof\Batch\ModelCsvImport::import', [$model]];
         }
       }
 
-      $this->messenger->addMessage($this->t('Importing @num records', ['@num' => $import]));
-      $this->messenger->addMessage($this->t('Updating @num records', ['@num' => $update]));
-
+      $this->messenger->addMessage($this->t('Processed @num models', ['@num' => $total]));
       batch_set($batch);
     }
   }
