@@ -10,6 +10,13 @@ class ModelCsvImport {
 
   /**
    * Called when the batch job has finished.
+   *
+   * @param bool $success
+   *   A boolean indicating whether batch was successful.
+   * @param array $results
+   *   An array of results collected by the batch process.
+   * @param array $operations
+   *   If $success is false, contains the operations that remain unprocessed.
    */
   public static function finished($success, $results, $operations) {
     if ($success) {
@@ -24,6 +31,11 @@ class ModelCsvImport {
 
   /**
    * Import model from CSV data.
+   *
+   * @param array $data
+   *   Model data as defined in the CSV file.
+   * @param array &$context
+   *   A reference to the batch context array.
    */
   public static function import(array $data, array &$context) {
     $context['message'] = t('Importing model %name', ['%name' => $data['Name']]);
@@ -40,6 +52,13 @@ class ModelCsvImport {
 
   /**
    * Update existing model from CSV data.
+   *
+   * @param \Drupal\mof\ModelInterface $model
+   *   The model entity we are updating.
+   * @param array $data
+   *   Model data as defined in the CSV file.
+   * @param array &$context
+   *   A reference to the batch context array.
    */
   public static function update(ModelInterface $model, array $data, array &$context) {
     $context['message'] = t('Updating model %name', ['%name' => $data['Name']]);
@@ -53,6 +72,16 @@ class ModelCsvImport {
     }
   }
 
+  /**
+   * Set model entity values.
+   *
+   * @param \Drupal\mof\ModelInterface $model
+   *   The model entity we are setting values on.
+   * @param array $data
+   *   Model data as defined in the CSV file.
+   * @return int
+   *   An integer indicating SAVED_NEW or SAVED_UPDATED.
+   */
   public static function setModelValues(ModelInterface $model, array $data): int {
     $licenses = static::processLicenses($data);
 
@@ -75,6 +104,14 @@ class ModelCsvImport {
     return $model->save();
   }
 
+  /**
+   * Process license data.
+   *
+   * @param array $data
+   *   License data from CSV file.
+   * @return array
+   *   An array suitable for model entity license data.
+   */
   public static function processLicenses(array $data): array {
     return [
       9 => [
@@ -165,11 +202,28 @@ class ModelCsvImport {
     ];
   }
 
+  /**
+   * Get the path from a URL string.
+   *
+   * @param string $url
+   *   A string representing a full URL.
+   * @return string
+   *   The path portion of the URL.
+   */
   public static function getPathFromUrl(string $url): string {
     $parsed = parse_url($url);
     return isset($parsed['path']) ? ltrim($parsed['path'], '/') : '';
   }
 
+  /**
+   * Create or load a Drupal user account.
+   *
+   * @param string $researcher
+   *   A username used for user-lookup.
+   *   An account is created if the username does not exist.
+   * @return \Drupal\Core\Session\AccountInterface
+   *   A Drupal user account entity.
+   */
   public static function getApprover(string $researcher): AccountInterface {
     $username = strtolower(str_replace(' ', '.', $researcher));
     $user_storage = \Drupal::entityTypeManager()->getStorage('user');

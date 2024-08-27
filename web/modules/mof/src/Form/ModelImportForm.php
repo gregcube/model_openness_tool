@@ -111,7 +111,7 @@ final class ModelImportForm extends FormBase {
       }
 
       $this->messenger->addMessage($this->t('Importing @num records', ['@num' => $import]));
-      $this->messenger->addMessage($this->t('Updated @num records', ['@num' => $update]));
+      $this->messenger->addMessage($this->t('Updating @num records', ['@num' => $update]));
 
       batch_set($batch);
     }
