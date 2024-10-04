@@ -4,7 +4,7 @@ framework:
   date: '2024-12-15'
 release:
   name: Amber
-  version: 7B
+  version: 7B-test
   date: '2024-10-03'
   type: language
   architecture: 'transformer decoder'
