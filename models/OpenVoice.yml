@@ -11,7 +11,7 @@ release:
   origin: OpenVoice
   producer: MyShell
   contact: ''
-  github: 'https://github.com/myshell-ai/OpenVoice/tree/main'
+  repository: 'https://github.com/myshell-ai/OpenVoice/tree/main'
   huggingface: 'https://huggingface.co/myshell-ai/OpenVoice'
   components:
     -

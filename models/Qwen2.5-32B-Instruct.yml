@@ -11,7 +11,7 @@ release:
   origin: Qwen2.5-32B
   producer: Alibaba
   contact: ''
-  github: 'https://github.com/QwenLM/Qwen2.5'
+  repository: 'https://github.com/QwenLM/Qwen2.5'
   huggingface: 'https://huggingface.co/Qwen/Qwen2.5-32B-Instruct'
   components:
     -

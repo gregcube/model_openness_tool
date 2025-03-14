@@ -11,7 +11,7 @@ release:
   origin: ''
   producer: Salesforce
   contact: ''
-  github: 'https://github.com/salesforce/CodeT5/tree/main/CodeT5%2B'
+  repository: 'https://github.com/salesforce/CodeT5/tree/main/CodeT5%2B'
   huggingface: 'https://huggingface.co/Salesforce/codet5p-16b'
   components:
     -

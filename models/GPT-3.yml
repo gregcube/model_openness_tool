@@ -11,7 +11,7 @@ release:
   origin: ''
   producer: OpenAI
   contact: ''
-  github: 'https://github.com/openai/gpt-3'
+  repository: 'https://github.com/openai/gpt-3'
   components:
     -
       name: 'Model architecture'

@@ -11,7 +11,7 @@ release:
   origin: ''
   producer: Meta
   contact: ''
-  github: 'https://github.com/facebookresearch/fairseq'
+  repository: 'https://github.com/facebookresearch/fairseq'
   components:
     -
       name: 'Model architecture'

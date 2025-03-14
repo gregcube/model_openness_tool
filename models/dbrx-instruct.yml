@@ -11,7 +11,7 @@ release:
   origin: dbrx-base
   producer: Databricks
   contact: ''
-  github: 'https://github.com/deepseek-ai/DeepSeek-MoE/blob/main/README.md'
+  repository: 'https://github.com/deepseek-ai/DeepSeek-MoE/blob/main/README.md'
   huggingface: 'https://huggingface.co/deepseek-ai/deepseek-moe-16b-base'
   components:
     -

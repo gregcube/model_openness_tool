@@ -11,6 +11,8 @@ mof.model.evaluate_form:
   defaults:
     _entity_form: model.evaluate
     _title: 'Evaluate model'
+  options:
+    no_cache: TRUE
   requirements:
     _access: 'TRUE'
 

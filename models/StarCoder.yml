@@ -11,7 +11,7 @@ release:
   origin: ''
   producer: 'BigCode Project'
   contact: ''
-  github: 'https://github.com/bigcode-project/starcoder/tree/main'
+  repository: 'https://github.com/bigcode-project/starcoder/tree/main'
   huggingface: 'https://huggingface.co/bigcode/starcoder'
   components:
     -

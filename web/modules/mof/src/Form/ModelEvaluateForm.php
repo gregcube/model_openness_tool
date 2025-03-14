@@ -33,7 +33,7 @@ final class ModelEvaluateForm extends ModelForm {
       'treatment',
       'origin',
       'revision_information',
-      'github',
+      'repository',
       'huggingface',
       'status',
     ];
@@ -104,6 +104,7 @@ final class ModelEvaluateForm extends ModelForm {
    *   The current state of the form.
    */
   public function resetForm(array &$form, FormStateInterface $form_state): void {
+    $form_state->set('evaluation', NULL);
     $this->session->remove('model_evaluation');
     $this->session->remove('model_data');
   }

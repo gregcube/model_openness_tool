@@ -11,7 +11,7 @@ release:
   origin: UL2
   producer: Google
   contact: ''
-  github: 'https://github.com/google-research/google-research/tree/master/ul2'
+  repository: 'https://github.com/google-research/google-research/tree/master/ul2'
   huggingface: 'https://huggingface.co/google/ul2'
   components:
     -

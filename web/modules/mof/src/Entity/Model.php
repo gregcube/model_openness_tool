@@ -175,10 +175,10 @@ final class Model extends RevisionableContentEntityBase implements ModelInterfac
   }
 
   /**
-   * Get models github repo slug.
+   * Get the model repository URL.
    */
-  public function getGithubSlug(): ?string {
-    return $this->get('github')->value ?? NULL;
+  public function getRepositoryUrl(): ?string {
+    return $this->get('repository')->value ?? NULL;
   }
 
   /**
@@ -264,18 +264,20 @@ final class Model extends RevisionableContentEntityBase implements ModelInterfac
       ->setDisplayConfigurable('view', TRUE)
       ->addConstraint('ModelNameConstraint');
 
-    $fields['github'] = BaseFieldDefinition::create('list_string')
-      ->setRevisionable(TRUE)
+    $fields['repository'] = BaseFieldDefinition::create('string')
       ->setTranslatable(FALSE)
-      ->setLabel(t('Project repository'))
+      ->setLabel(t('Repository'))
+      ->setDescription(t('Enter URL to the model\'s repository.'))
       ->setRequired(FALSE)
-      ->setReadOnly(TRUE)
-      ->setSetting('allowed_values_function', 'mof_github_repo_list')
       ->setDisplayConfigurable('form', FALSE)
-      ->setCardinality(1)
       ->setDisplayOptions('form', [
-        'type' => 'options_select',
+        'type' => 'string_textfield',
         'weight' => -110,
+      ])
+      ->setDisplayOptions('view', [
+        'label' => 'hidden',
+        'type' => 'string',
+        'weight' => -100,
       ]);
 
     $fields['huggingface'] = BaseFieldDefinition::create('string')

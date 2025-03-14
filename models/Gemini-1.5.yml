@@ -11,7 +11,7 @@ release:
   origin: ''
   producer: Google
   contact: ''
-  github: 'https://github.com/GoogleCloudPlatform/generative-ai/tree/main/gemini/getting-started'
+  repository: 'https://github.com/GoogleCloudPlatform/generative-ai/tree/main/gemini/getting-started'
   components:
     -
       name: 'Model architecture'

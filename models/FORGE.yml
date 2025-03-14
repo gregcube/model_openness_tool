@@ -11,7 +11,7 @@ release:
   origin: ''
   producer: 'Oak Ridge National Lab'
   contact: ''
-  github: 'https://github.com/at-aaims/forge'
+  repository: 'https://github.com/at-aaims/forge'
   components:
     -
       name: 'Model architecture'

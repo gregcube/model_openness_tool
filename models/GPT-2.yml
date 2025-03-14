@@ -11,7 +11,7 @@ release:
   origin: ''
   producer: OpenAI
   contact: ''
-  github: 'https://github.com/openai/gpt-2'
+  repository: 'https://github.com/openai/gpt-2'
   huggingface: 'https://huggingface.co/openai-community/gpt2'
   components:
     -

@@ -11,7 +11,7 @@ release:
   origin: 'GPT Megatron'
   producer: EleutherAI
   contact: ''
-  github: 'https://github.com/EleutherAI/gpt-neox'
+  repository: 'https://github.com/EleutherAI/gpt-neox'
   huggingface: 'https://huggingface.co/EleutherAI/gpt-neox-20b'
   components:
     -

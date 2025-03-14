@@ -11,7 +11,7 @@ release:
   origin: Granite-3B-Code-Base
   producer: IBM
   contact: ''
-  github: 'https://github.com/ibm-granite/granite-code-models'
+  repository: 'https://github.com/ibm-granite/granite-code-models'
   huggingface: 'https://huggingface.co/ibm-granite/granite-3b-code-instruct'
   components:
     -

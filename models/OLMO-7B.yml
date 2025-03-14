@@ -11,7 +11,7 @@ release:
   origin: oLMO
   producer: 'Allen Institute'
   contact: ''
-  github: 'https://github.com/allenai/OLMo'
+  repository: 'https://github.com/allenai/OLMo'
   huggingface: 'https://huggingface.co/allenai/OLMo-7B'
   components:
     -

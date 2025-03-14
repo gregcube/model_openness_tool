@@ -11,7 +11,7 @@ release:
   origin: Amber
   producer: LLM360
   contact: ''
-  github: 'https://github.com/LLM360/amber-train'
+  repository: 'https://github.com/LLM360/amber-train'
   huggingface: 'https://huggingface.co/LLM360/Amber'
   components:
     -

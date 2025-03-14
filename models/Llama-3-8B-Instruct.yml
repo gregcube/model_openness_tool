@@ -11,7 +11,7 @@ release:
   origin: llama-3-8B
   producer: Meta
   contact: ''
-  github: 'https://github.com/meta-llama/llama3'
+  repository: 'https://github.com/meta-llama/llama3'
   huggingface: 'https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct'
   components:
     -

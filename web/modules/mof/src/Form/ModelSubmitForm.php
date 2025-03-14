@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace Drupal\mof\Form;
 
@@ -30,9 +28,9 @@ final class ModelSubmitForm extends ModelForm {
     // Only admins can approve models.
     $form['status']['#access'] = $this->currentUser()->hasPermission('administer model');
 
-    $form['github']['widget']['#ajax'] = [
+    $form['repository']['widget'][0]['value']['#ajax'] = [
       'callback' => [$this, 'populateModelDetails'],
-      'event' => 'change',
+      'event' => 'keyup',
       'wrapper' => 'details-wrap',
       'progress' => [
         'type' => 'throbber',
@@ -77,8 +75,8 @@ final class ModelSubmitForm extends ModelForm {
     ];
 
     // Populate datalist if we're coming in with a default repo selected.
-    if (!$form_state->isRebuilding() && !empty($form['github']['widget']['#default_value'])) {
-      $repo_name = $form['github']['widget']['#default_value'][0];
+    if (!$form_state->isRebuilding() && !empty($form['repository']['widget']['#default_value'])) {
+      $repo_name = $form['repository']['widget']['#default_value'][0];
 
       if (($repo = $form_state->get($repo_name)) === NULL) {
         $repo = $this->github->getRepo($repo_name);
@@ -157,11 +155,16 @@ final class ModelSubmitForm extends ModelForm {
     $extra = array_column($this->licenseHandler->getExtraOptions(), 'licenseId');
 
     // Re-populate git repo tree datalist.
-    if (($repo_name = $form_state->getValue('github')) && !empty($repo_name)) {
+    // Only if it's a github repository.
+    $repo_url ??= $form_state->getValue('repository')[0]['value'];
+    if ($repo_url !== NULL && ($path = $this->isGitHubRepository($repo_url)) !== NULL) {
 
-      if (($repo = $form_state->get($repo_name[0]['value'])) === NULL) {
-        $repo = $this->github->getRepo($repo_name[0]['value']);
-        $form_state->set($repo_name[0]['value'], $repo);
+      if ($form_state->get($path) === NULL) {
+        $repo = $this->github->getRepo($path);
+        $form_state->set($path, $repo);
+      }
+      else {
+        $repo = $form_state->get($path);
       }
 
       $form['details']['datalist']['tree'] += $this->getRepoTree($repo->full_name, $repo->default_branch);
@@ -169,14 +172,32 @@ final class ModelSubmitForm extends ModelForm {
   }
 
   /**
+   * Determine if $url is a URL to a github repository, and if it is
+   * return the path portion of the $url. Otherwise return NULL.
+   *
+   * @param string $url
+   *
+   * @return string The path or NULL if not a github URL.
+   */
+  protected function isGitHubRepository(string $url): ?string {
+    $url = parse_url($url);
+    return $url !== false && isset($url['host']) && $url['host'] === 'github.com' ? $url['path'] : NULL;
+  }
+
+  /**
    * Ajax callback. Returns populated model details.
    */
   public function populateModelDetails(array &$form, FormStateInterface $form_state): array {
-    if ($repo_name = $form_state->getValue('github')) {
+    $repo_url ??= $form_state->getValue('repository')[0]['value'];
 
-      if (($repo = $form_state->get($repo_name[0]['value'])) === NULL) {
-        $repo = $this->github->getRepo($repo_name[0]['value']);
-        $form_state->set($repo_name[0]['value'], $repo);
+    if ($repo_url !== NULL && ($path = $this->isGitHubRepository($repo_url)) !== NULL) {
+
+      if ($form_state->get($path) === NULL) {
+        $repo = $this->github->getRepo($path);
+        $form_state->set($path, $repo);
+      }
+      else {
+        $repo = $form_state->get($path);
       }
 
       $form['details']['label']['widget'][0]['value']['#value'] = $repo->name;

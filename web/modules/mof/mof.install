@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
 
 /**
- * Implements hook_update_N()
+ * Implements hook_update_N().
  *
  * Install dependencies for MOT API.
  */
@@ -24,6 +24,40 @@ function mof_update_10201() {
       $role->grantPermission('restful get model_v1');
       $role->save();
     }
+  }
+}
+
+/**
+ * Implements hook_update_N().
+ *
+ * 1) Uninstall the github field.
+ * 2) Install the repository field.
+ */
+function mof_update_10202() {
+  $entity_type = 'model';
+
+  // Required services.
+  $entity_type_manager = \Drupal::service('entity_type.manager');
+  $entity_field_manager = \Drupal::service('entity_field.manager');
+  $entity_update_manager = \Drupal::service('entity.definition_update_manager');
+
+  // The existing field storage definition.
+  $field_storage = $entity_field_manager->getFieldStorageDefinitions($entity_type);
+
+  // Remove 'github' field.
+  if (isset($field_storage['github'])) {
+    $field_storage['github']->delete();
+  }
+
+  // Load entity class and get the base field definitions.
+  $entity_definition = $entity_type_manager->getDefinition($entity_type);
+  $entity_class = $entity_definition->getClass();
+  $field_definitions = $entity_class::baseFieldDefinitions($entity_definition);
+
+  // Install 'repository' field.
+  if (isset($field_definitions['repository'])) {
+    $entity_update_manager
+      ->installFieldStorageDefinition('repository', $entity_type, 'mof', $field_definitions['repository']);
   }
 }
 

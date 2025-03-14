@@ -11,7 +11,7 @@ release:
   origin: Granite-20B-Code-Base
   producer: IBM
   contact: ''
-  github: 'https://github.com/ibm-granite/granite-code-models'
+  repository: 'https://github.com/ibm-granite/granite-code-models'
   huggingface: 'https://huggingface.co/ibm-granite/granite-20b-code-instruct'
   components:
     -

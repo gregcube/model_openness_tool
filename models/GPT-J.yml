@@ -11,7 +11,7 @@ release:
   origin: GPT
   producer: EleutherAI
   contact: ''
-  github: 'https://github.com/kingoflolz/mesh-transformer-jax'
+  repository: 'https://github.com/kingoflolz/mesh-transformer-jax'
   huggingface: 'https://huggingface.co/EleutherAI/gpt-j-6b'
   components:
     -

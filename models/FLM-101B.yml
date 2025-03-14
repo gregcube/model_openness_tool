@@ -11,7 +11,7 @@ release:
   origin: ''
   producer: 'Multilateral, lead by BAAI'
   contact: ''
-  github: 'https://github.com/cofe-ai/FLM-101B'
+  repository: 'https://github.com/cofe-ai/FLM-101B'
   huggingface: 'https://huggingface.co/CofeAI/FLM-101B'
   components:
     -

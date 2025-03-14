@@ -21,32 +21,12 @@ final class ModelAdminEditForm extends ModelForm {
   /**
    * {@inheritdoc}
    */
-  public function save(array $form, FormStateInterface $form_state): int {
-    $this->entity->set('github', $form_state->getValue('github_admin'));
-    return parent::save($form, $form_state);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function form(array $form, FormStateInterface $form_state): array {
     $form += parent::form($form, $form_state);
     $entity = $this->entity;
 
     $form['#attached']['library'][] = 'mof/model-submit';
     $form['#attributes']['novalidate'] = 'novalidate';
-
-    // Admins cannot select/change github repo.
-    $form['github']['#access'] = FALSE;
-
-    // But admins can freehand a github repo name.
-    $form['github_admin'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Github'),
-      '#weight' => 10,
-      '#parents' => ['github_admin'],
-      '#default_value' => $entity->get('github')->value,
-    ];
 
     $model_details = [
       'label',
@@ -58,7 +38,6 @@ final class ModelAdminEditForm extends ModelForm {
       'treatment',
       'origin',
       'revision_information',
-      'github_admin',
       'huggingface',
     ];
 

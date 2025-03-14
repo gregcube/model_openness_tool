@@ -11,7 +11,7 @@ release:
   origin: TeleChat-7B
   producer: Telecom
   contact: ''
-  github: 'https://github.com/Tele-AI/Telechat'
+  repository: 'https://github.com/Tele-AI/Telechat'
   huggingface: 'https://huggingface.co/Tele-AI/telechat-7B'
   components:
     -

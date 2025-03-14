@@ -11,7 +11,7 @@ release:
   origin: ''
   producer: Salesforce
   contact: ''
-  github: 'https://github.com/salesforce/CodeT5/tree/main'
+  repository: 'https://github.com/salesforce/CodeT5/tree/main'
   components:
     -
       name: 'Model architecture'

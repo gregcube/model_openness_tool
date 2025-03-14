@@ -11,7 +11,7 @@ release:
   origin: ''
   producer: DeepMind
   contact: ''
-  github: 'https://github.com/jonnii/chinchilla'
+  repository: 'https://github.com/jonnii/chinchilla'
   components:
     -
       name: 'Model architecture'

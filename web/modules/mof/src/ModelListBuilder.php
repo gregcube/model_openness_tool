@@ -137,8 +137,8 @@ final class ModelListBuilder extends EntityListBuilder {
       'class' => 'model-label',
     ];
 
-    if (($slug = $entity->getGithubSlug())) {
-      $row['label']['data']['#github' ] = $slug;
+    if (($repo = $entity->getRepositoryUrl())) {
+      $row['label']['data']['#repository' ] = $repo;
     }
 
     if (($slug = $entity->getHuggingfaceSlug())) {

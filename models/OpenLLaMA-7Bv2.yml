@@ -11,7 +11,7 @@ release:
   origin: ''
   producer: 'UC Berkeley'
   contact: ''
-  github: 'https://github.com/openlm-research/open_llama'
+  repository: 'https://github.com/openlm-research/open_llama'
   huggingface: 'https://huggingface.co/openlm-research/open_llama_7b_v2'
   components:
     -

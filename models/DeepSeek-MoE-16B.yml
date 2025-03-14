@@ -11,7 +11,7 @@ release:
   origin: ''
   producer: 'DeepSeek AI'
   contact: ''
-  github: 'https://github.com/deepseek-ai/DeepSeek-MoE/tree/main'
+  repository: 'https://github.com/deepseek-ai/DeepSeek-MoE/tree/main'
   huggingface: 'https://huggingface.co/deepseek-ai/deepseek-moe-16b-base'
   components:
     -

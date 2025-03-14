@@ -11,7 +11,7 @@ release:
   origin: ''
   producer: 'Tsinghua University'
   contact: ''
-  github: 'https://github.com/THUDM/GLM-130B'
+  repository: 'https://github.com/THUDM/GLM-130B'
   components:
     -
       name: 'Model architecture'

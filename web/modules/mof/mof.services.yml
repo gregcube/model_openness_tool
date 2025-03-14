@@ -62,9 +62,7 @@ services:
     class: Drupal\mof\GitHubService
     arguments:
       - '@http_client'
-      - '@current_user'
-      - '@entity_type.manager'
-      - '@logger.factory'
+      - '@logger.channel.mot'
 
   mof.event_subscriber:
     class: Drupal\mof\EventSubscriber\GitHubSubscriber

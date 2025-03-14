@@ -11,7 +11,7 @@ release:
   origin: NTT-Dialog
   producer: NTT
   contact: ''
-  github: 'https://github.com/nttcslab/japanese-dialog-transformers'
+  repository: 'https://github.com/nttcslab/japanese-dialog-transformers'
   components:
     -
       name: 'Model architecture'

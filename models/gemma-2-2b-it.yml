@@ -11,7 +11,7 @@ release:
   origin: gemma-2-2b
   producer: Google
   contact: ''
-  github: 'https://github.com/google-gemini/gemma-cookbook'
+  repository: 'https://github.com/google-gemini/gemma-cookbook'
   huggingface: 'https://huggingface.co/google/gemma-2-2b-it'
   components:
     -

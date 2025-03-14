@@ -11,7 +11,7 @@ release:
   origin: GPT2
   producer: 'BigCode Project'
   contact: ''
-  github: 'https://github.com/bigcode-project/Megatron-LM'
+  repository: 'https://github.com/bigcode-project/Megatron-LM'
   huggingface: 'https://huggingface.co/bigcode/santacoder'
   components:
     -

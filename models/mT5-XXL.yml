@@ -11,7 +11,7 @@ release:
   origin: mT5
   producer: Google
   contact: ''
-  github: 'https://github.com/google-research/multilingual-t5'
+  repository: 'https://github.com/google-research/multilingual-t5'
   huggingface: 'https://huggingface.co/google/mt5-xxl'
   components:
     -

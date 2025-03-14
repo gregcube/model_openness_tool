@@ -11,7 +11,7 @@ release:
   origin: ''
   producer: 'Shanghai AI Lab'
   contact: ''
-  github: 'https://github.com/OpenNLPLab/HGRN2'
+  repository: 'https://github.com/OpenNLPLab/HGRN2'
   components:
     -
       name: 'Model architecture'

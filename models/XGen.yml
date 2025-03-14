@@ -11,7 +11,7 @@ release:
   origin: Apache-2.0
   producer: Salesforce
   contact: ''
-  github: 'https://github.com/pytorch_model-00001-of-00003.bin · Salesforce/xgen-7b-8k-inst at main (huggingface.co)'
+  repository: 'https://github.com/pytorch_model-00001-of-00003.bin · Salesforce/xgen-7b-8k-inst at main (huggingface.co)'
   huggingface: 'https://huggingface.co/Salesforce/xgen-7b-8k-inst · Hugging Face'
   components:
     -

@@ -11,7 +11,7 @@ release:
   origin: ''
   producer: Meta
   contact: ''
-  github: 'https://github.com/paperswithcode/galai/tree/main'
+  repository: 'https://github.com/paperswithcode/galai/tree/main'
   huggingface: 'https://huggingface.co/facebook/galactica-120b'
   components:
     -

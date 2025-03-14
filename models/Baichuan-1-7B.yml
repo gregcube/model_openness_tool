@@ -11,7 +11,7 @@ release:
   origin: Baichuan-1
   producer: 'Baichuan AI'
   contact: ''
-  github: 'https://github.com/baichuan-inc/Baichuan-7B/tree/main'
+  repository: 'https://github.com/baichuan-inc/Baichuan-7B/tree/main'
   huggingface: 'https://huggingface.co/baichuan-inc/Baichuan-7B'
   components:
     -

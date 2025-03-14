@@ -11,7 +11,7 @@ release:
   origin: ''
   producer: Meta
   contact: ''
-  github: 'https://github.com/dpfried/incoder'
+  repository: 'https://github.com/dpfried/incoder'
   huggingface: 'https://huggingface.co/facebook/incoder-6B'
   components:
     -

@@ -11,7 +11,7 @@ release:
   origin: MIT
   producer: 'FAIR (Fundamental Artificial Intelligence Research)'
   contact: ''
-  github: 'https://github.com/fairseq/examples/xglm at main · facebookresearch/fairseq (github.com)'
+  repository: 'https://github.com/fairseq/examples/xglm at main · facebookresearch/fairseq (github.com)'
   huggingface: 'https://huggingface.co/facebook/xglm-7.5B · Hugging Face'
   components:
     -

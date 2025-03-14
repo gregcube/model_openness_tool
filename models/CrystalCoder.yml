@@ -11,7 +11,7 @@ release:
   origin: Crystal
   producer: LLM360
   contact: ''
-  github: 'https://github.com/LLM360/crystalcoder-train'
+  repository: 'https://github.com/LLM360/crystalcoder-train'
   huggingface: 'https://huggingface.co/LLM360/CrystalCoder'
   components:
     -

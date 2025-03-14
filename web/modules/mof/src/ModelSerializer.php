@@ -51,9 +51,8 @@ final class ModelSerializer implements ModelSerializerInterface {
       ],
     ];
 
-    if ($model->getGithubSlug()) {
-      $data['release']['github'] = 'https://github.com/' . $model->getGithubSlug();
-    }
+    $data['release']['repository'] = $model->getRepositoryUrl() ?? '';
+
     if ($model->getHuggingfaceSlug()) {
       $data['release']['huggingface'] = 'https://huggingface.co/' . $model->getHuggingfaceSlug();
     }

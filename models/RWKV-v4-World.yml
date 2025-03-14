@@ -11,7 +11,7 @@ release:
   origin: ''
   producer: RWKV
   contact: ''
-  github: 'https://github.com/BlinkDL/RWKV-LM/'
+  repository: 'https://github.com/BlinkDL/RWKV-LM/'
   huggingface: 'https://huggingface.co/RWKV/rwkv-raven-7b'
   components:
     -

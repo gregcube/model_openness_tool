@@ -11,7 +11,7 @@ release:
   origin: GPT
   producer: EleutherAI
   contact: ''
-  github: 'https://github.com/EleutherAI/gpt-neo'
+  repository: 'https://github.com/EleutherAI/gpt-neo'
   huggingface: 'https://huggingface.co/EleutherAI/gpt-neo-2.7B'
   components:
     -

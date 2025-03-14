@@ -11,7 +11,7 @@ release:
   origin: ''
   producer: 'Ant Group'
   contact: ''
-  github: 'https://github.com/codefuse-ai'
+  repository: 'https://github.com/codefuse-ai'
   huggingface: 'https://huggingface.co/codefuse-ai/CodeFuse-13B'
   components:
     -
