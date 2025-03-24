@@ -30,11 +30,11 @@ final class ModelSubmitForm extends ModelForm {
 
     $form['repository']['widget'][0]['value']['#ajax'] = [
       'callback' => [$this, 'populateModelDetails'],
-      'event' => 'keyup',
+      'event' => 'keyup_debounced',
       'wrapper' => 'details-wrap',
       'progress' => [
         'type' => 'throbber',
-        'message' => $this->t('Loading repository...'),
+        'message' => $this->t('Validating repository...'),
       ],
     ];
 
@@ -83,7 +83,9 @@ final class ModelSubmitForm extends ModelForm {
         $form_state->set($repo_name, $repo);
       }
 
-      $form['details']['datalist']['tree'] = $this->getRepoTree($repo->full_name, $repo->default_branch);
+      if ($repo) {
+        $form['details']['datalist']['tree'] = $this->getRepoTree($repo->full_name, $repo->default_branch);
+      }
     }
 
     // Open when ajax rebuilds the form.
@@ -167,7 +169,12 @@ final class ModelSubmitForm extends ModelForm {
         $repo = $form_state->get($path);
       }
 
-      $form['details']['datalist']['tree'] += $this->getRepoTree($repo->full_name, $repo->default_branch);
+      if ($repo) {
+        $form['details']['datalist']['tree'] += $this->getRepoTree($repo->full_name, $repo->default_branch);
+      }
+      else {
+        $form['details']['datalist']['tree'] = [];
+      }
     }
   }
 
@@ -179,9 +186,25 @@ final class ModelSubmitForm extends ModelForm {
    *
    * @return string The path or NULL if not a github URL.
    */
-  protected function isGitHubRepository(string $url): ?string {
+  private function isGitHubRepository(string $url): ?string {
     $url = parse_url($url);
-    return $url !== false && isset($url['host']) && $url['host'] === 'github.com' ? $url['path'] : NULL;
+
+    if ($url === false || !isset($url['host']) || $url['host'] !== 'github.com') {
+      return NULL;
+    }
+
+    if (!isset($url['path']) || empty(trim($url['path'], '/'))) {
+      return NULL;
+    }
+
+    $path = trim($url['path'], '/');
+    $segments = explode('/', $path);
+
+    if (sizeof($segments) !== 2 || empty($segments[0]) || empty($segments[1])) {
+      return NULL;
+    }
+
+    return '/' . $segments[0] . '/' . $segments[1];
   }
 
   /**
@@ -200,9 +223,16 @@ final class ModelSubmitForm extends ModelForm {
         $repo = $form_state->get($path);
       }
 
-      $form['details']['label']['widget'][0]['value']['#value'] = $repo->name;
-      $form['details']['description']['widget'][0]['value']['#value'] = $repo->description;
-      $form['details']['datalist']['tree'] = $this->getRepoTree($repo->full_name, $repo->default_branch);
+      if ($repo) {
+        $form['details']['label']['widget'][0]['value']['#value'] = $repo->name;
+        $form['details']['description']['widget'][0]['value']['#value'] = $repo->description;
+        $form['details']['datalist']['tree'] = $this->getRepoTree($repo->full_name, $repo->default_branch);
+      }
+      else {
+        $form['details']['label']['widget'][0]['value']['#value'] = '';
+        $form['details']['description']['widget'][0]['value']['#value'] = '';
+        $form['details']['datalist']['tree'] = [];
+      }
     }
 
     return $form['details'];

@@ -267,7 +267,7 @@ final class Model extends RevisionableContentEntityBase implements ModelInterfac
     $fields['repository'] = BaseFieldDefinition::create('string')
       ->setTranslatable(FALSE)
       ->setLabel(t('Repository'))
-      ->setDescription(t('Enter URL to the model\'s repository.'))
+      ->setDescription(t('Enter the full URL to the model\'s repository.'))
       ->setRequired(FALSE)
       ->setDisplayConfigurable('form', FALSE)
       ->setDisplayOptions('form', [

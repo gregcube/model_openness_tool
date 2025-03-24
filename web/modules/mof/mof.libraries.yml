@@ -11,6 +11,8 @@ model-submit:
       css/theme/model_submit.css: {}
   js:
     js/model_add_form.js: {}
+  dependencies:
+    - core/drupal.debounce
 
 model-evaluation:
   version: VERSION

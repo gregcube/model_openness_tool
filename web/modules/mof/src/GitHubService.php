@@ -25,7 +25,13 @@ final class GitHubService {
    *
    * @todo Implement a simple repository interface/ class to replace stdClass.
    */
-  public function getRepo(string $repo_name): \stdClass {
+  public function getRepo(string $repo_name): ?\stdClass {
+    $repo = $this->execute('/repos' . trim($repo_name));
+
+    if (!$repo) {
+      return NULL;
+    }
+
     $repo = $this->execute('/repos' . trim($repo_name))->getBody()->getContents();
     return json_decode($repo);
   }
