@@ -41,10 +41,11 @@ function mof_update_10202() {
   $entity_field_manager = \Drupal::service('entity_field.manager');
   $entity_update_manager = \Drupal::service('entity.definition_update_manager');
 
-  // Remove 'github' field storage definition.
-  $github_field = $entity_update_manager->getFieldStorageDefinition('github', $entity_type);
-  if ($github_field) {
-    $entity_update_manager->uninstallFieldStorageDefinition($github_field);
+  // Remove 'github' field.
+  $github = $entity_update_manager->getFieldStorageDefinition('github', $entity_type);
+  if ($github) {
+    $entity_update_manager->uninstallFieldStorageDefinition($github);
+    field_purge_batch(1000, $github);
   }
 
   // Load entity class and get the base field definitions.
