@@ -41,13 +41,6 @@ function mof_update_10202() {
   $entity_field_manager = \Drupal::service('entity_field.manager');
   $entity_update_manager = \Drupal::service('entity.definition_update_manager');
 
-  // Remove 'github' field.
-  $github = $entity_update_manager->getFieldStorageDefinition('github', $entity_type);
-  if ($github) {
-    $entity_update_manager->uninstallFieldStorageDefinition($github);
-    field_purge_batch(1000, $github);
-  }
-
   // Load entity class and get the base field definitions.
   $entity_definition = $entity_type_manager->getDefinition($entity_type);
   $entity_class = $entity_definition->getClass();
@@ -55,8 +48,19 @@ function mof_update_10202() {
 
   // Install 'repository' field.
   if (isset($field_definitions['repository'])) {
-    $entity_update_manager
-      ->installFieldStorageDefinition('repository', $entity_type, 'mof', $field_definitions['repository']);
+    $entity_update_manager->installFieldStorageDefinition('repository', $entity_type, 'mof', $field_definitions['repository']);
   }
+
+  // Remove 'github' field.
+  try {
+    $github = $entity_update_manager->getFieldStorageDefinition('github', $entity_type);
+    if ($github) $entity_update_manager->uninstallFieldStorageDefinition($github);
+  }
+  catch (\Drupal\Core\Entity\EntityStorageException $e) {
+    print $e->getMessage() . PHP_EOL;
+  }
+
+  drupal_flush_all_caches();
+  field_purge_batch(1000);
 }
 
