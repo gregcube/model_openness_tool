@@ -99,11 +99,11 @@ jobs:
           cp ./web/sites/default/mot.settings.php ./web/sites/default/settings.php
           cp ./web/sites/default/default.services.yml ./web/sites/default/services.yml
           ./vendor/bin/drush site-install mot_profile --yes
+          sudo chown www-data: ./web/sites ./web/sites/default/files
 
       - name: Run PHPUnit tests
         run: |
-          sudo php ./web/core/scripts/run-tests.sh \
-            --dburl mysql://drupal:drupal@127.0.0.1:3306/drupal \
+          sudo -u www-data php ./web/core/scripts/run-tests.sh \
             --sqlite /tmp/drupal.sqlite \
             --verbose \
             --url http://localhost Drupal,Core,Bootstrap,Access
