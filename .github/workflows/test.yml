@@ -99,7 +99,9 @@ jobs:
           cp ./web/sites/default/mot.settings.php ./web/sites/default/settings.php
           cp ./web/sites/default/default.services.yml ./web/sites/default/services.yml
           ./vendor/bin/drush site-install mot_profile --yes
+          sudo chmod 0755 /home/runner
           sudo chown www-data: ./web/sites ./web/sites/default/files
+          ls -l /home/runner
 
       - name: Run PHPUnit tests
         run: |
