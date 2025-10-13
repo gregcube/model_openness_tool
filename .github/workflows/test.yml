@@ -101,6 +101,7 @@ jobs:
           ./vendor/bin/drush site-install mot_profile --yes
           mkdir -p ./web/sites/default/files/simpletest ./web/sites/simpletest ./web/vfs\:
           sudo chown www-data:www-data ./web/sites/default/files ./web/sites/default/files/simpletest ./web/sites/simpletest
+          sudo chmod 0755 /home/runner
 
       - name: Run PHPUnit tests
         run: |
